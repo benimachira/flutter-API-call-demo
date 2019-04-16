@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'views/VideoCellView.dart';
+import 'views/DetailsPage.dart';
 
 void main() => runApp(new RealWorldApp());
 
@@ -69,28 +71,18 @@ class RealWorldAppState extends State<RealWorldApp> {
                     //this videos is the dictionary created from the json
                     var videos = this.videos[i];
 
-                    return new Column(
-                      children: <Widget>[
-                        new Container(
-                          padding: EdgeInsets.all(16.0),
-                          child: new Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              new Image.network(videos["imageUrl"]),
-                              new Container(height: 8.0),
-                              new Text(
-                                videos["name"],
-                                style: new TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              new Divider(),
-                            ],
+                    //return the widget tree for
+                    return FlatButton(
+                      child: new VideoCellView(videos),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          new MaterialPageRoute(
+                            builder: (context) =>  new DetailsPage()
                           ),
-                        ),
-                      ],
+                        );
+                      },
                     );
-                    // return new Text("this is row $i");
                   },
                 ),
         ),
